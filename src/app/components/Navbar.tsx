@@ -1,6 +1,6 @@
-import Link from 'next/link';
-import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
-import { IoTicketOutline } from 'react-icons/io5';
+import Link from "next/link";
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import Cart from "./Cart";
 
 export default function Navbar() {
   return (
@@ -10,12 +10,7 @@ export default function Navbar() {
       </Link>
 
       <div className="flex items-center gap-8">
-        <div className="flex items-center cursor-pointer relative">
-          <IoTicketOutline size={36} color="#FFF" />
-          <span className="bg-white text-sm text-black font-bold rounded-full h-5 w-5 flex items-center justify-center absolute left-8 bottom-5">
-            2
-          </span>
-        </div>
+        <Cart />
         <div>
           <SignedIn>
             <UserButton />
