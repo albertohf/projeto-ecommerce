@@ -10,7 +10,7 @@ async function getProducts() {
   return res.json()
 }
 
-export default async function Home() {
+export default async function Home() { 
   const products = await getProducts();
 
 
