@@ -1,11 +1,24 @@
 import { useCartStore } from "@/store";
+import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 
 export default function CheckoutButton() {
+  const router = useRouter();
   const useStorage = useCartStore();
+  const { user } = useUser();
 
   const totalPrice = useStorage.cart.reduce((acc, item) => {
     return acc + item.price * item.quantity;
   }, 0);
+
+  const handlerCheckout = async () => {
+    if (!user) {
+      useStorage.toggleCart();
+      router.push(`/sign-in?redirectUrl='/'`);
+      return;
+    }
+    useStorage.setCheckout("checkout");
+  };
 
   return (
     <div className="absolute w-full bottom-0 right-0">
@@ -19,7 +32,7 @@ export default function CheckoutButton() {
         </p>
       </div>
       <button
-        onClick={() => useStorage.setCheckout("checkout")}
+        onClick={() => handlerCheckout()}
         className="w-[93%] bg-teal-600 text-white py-2 rounded-md m-3"
       >
         Finalizar Compra
