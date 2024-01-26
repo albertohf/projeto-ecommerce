@@ -20,7 +20,6 @@ async function getProducts(id: string): Promise<Product> {
 
 export default async function product({ params: { id } }: ProductPageProps) {
   const product = await getProducts(id);
-  console.log(product);
   return (
     <div className="flex flex-col md:flex-row items-center max-w-7xl mx-auto gap-8 p-10">
       <ProductImage product={product} />

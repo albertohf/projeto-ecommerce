@@ -5,14 +5,11 @@ import { Product } from "@/types/ProductType";
 interface CartState {
   cart: any[];
   addItem: (item: Product) => void;
-  removeItem: (id: string) => void;
-  // clearCart: () => void;
-  // totalPrice: number;
-  // totalQuantity: number;
-  // increaseQuantity: (id: string) => void;
-  // decreaseQuantity: (id: string) => void;
+  removeItem: (item: Product) => void;
   isOpen: boolean;
   toggleCart: () => void;
+  onCheckout: string;
+  setCheckout: (checkout: string) => void;
 }
 
 export const useCartStore = create<CartState>()(
@@ -39,10 +36,31 @@ export const useCartStore = create<CartState>()(
             return { cart: [...state.cart, { ...item, quantity: 1 }] };
           }
         }),
-      removeItem: (id: string) =>
-        set((state) => ({ cart: state.cart.filter((item) => item.id !== id) })),
+      removeItem: (item: Product) =>
+        set((state) => {
+          const existProduct = state.cart.find(
+            (product) => product.id === item.id
+          );
+          if (existProduct && existProduct.quantity! > 1) {
+            const updatedCart = state.cart.map((p) => {
+              if (p.id === item.id) {
+                return {
+                  ...p,
+                  quantity: p.quantity! - 1,
+                };
+              }
+              return p;
+            });
+            return { cart: updatedCart };
+          } else {
+            const filteredCart = state.cart.filter((p) => p.id !== item.id);
+            return { cart: filteredCart };
+          }
+        }),
       isOpen: false,
       toggleCart: () => set((state) => ({ isOpen: !state.isOpen })),
+      onCheckout: "cart",
+      setCheckout: (checkout: string) => set({ onCheckout: checkout }),
     }),
     { name: "cart-storage" }
   )
