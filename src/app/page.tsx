@@ -1,5 +1,5 @@
 import { fetchProducts } from "./actions";
-import InfinityScroll from "./components/InfinityScroll";
+// import InfinityScroll from "./components/InfinityScroll";
 import { Product } from "@/types/ProductType";
 import ProductCard from "./components/Product";
 
