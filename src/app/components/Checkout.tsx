@@ -1,6 +1,7 @@
 "use client";
 import { useCartStore } from "@/store";
 import { useEffect } from "react";
+import { NextResponse } from "next/server";
 
 export default function Checkout() {
   const cartStore = useCartStore();
@@ -13,13 +14,9 @@ export default function Checkout() {
       body: JSON.stringify({
         items: cartStore.cart,
       }),
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data);
-      });
+    }).then((data) => {
+      console.log(data);
+    });
   }, [cartStore.cart]);
 
   return (

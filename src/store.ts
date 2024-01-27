@@ -10,6 +10,7 @@ interface CartState {
   toggleCart: () => void;
   onCheckout: string;
   setCheckout: (checkout: string) => void;
+  clearCart: () => void;
 }
 
 export const useCartStore = create<CartState>()(
@@ -61,6 +62,7 @@ export const useCartStore = create<CartState>()(
       toggleCart: () => set((state) => ({ isOpen: !state.isOpen })),
       onCheckout: "cart",
       setCheckout: (checkout) => set({ onCheckout: checkout }),
+      clearCart: () => set({ cart: [] }),
     }),
 
     { name: "cart-storage" }
