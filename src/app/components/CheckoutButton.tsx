@@ -14,7 +14,7 @@ export default function CheckoutButton() {
   const handlerCheckout = async () => {
     if (!user) {
       useStorage.toggleCart();
-      router.push(`/sign-in?redirectUrl='/'`);
+      router.push(`/sign-in?redirectUrl=/`);
       return;
     }
     useStorage.setCheckout("checkout");

@@ -16,7 +16,6 @@ model User {
   externalId String   @unique
   attributes Json
   cpf        String   @unique @default("00000000000")
-  image      String[]
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
   tickets    Ticket[]

@@ -1,18 +1,10 @@
-import { Product } from '@/types/ProductType'
-import ProductCard from './components/Product';
+import { fetchProducts } from "./actions";
+import InfinityScroll from "./components/InfinityScroll";
+import { Product } from "@/types/ProductType";
+import ProductCard from "./components/Product";
 
-async function getProducts() {
-  const res = await fetch('https://fakestoreapi.com/products');
-  if(!res.ok) {
-    throw new Error('Failed to fetch products');
-  }
-
-  return res.json()
-}
-
-export default async function Home() { 
-  const products = await getProducts();
-
+export default async function Home() {
+  const products = await fetchProducts({});
 
   return (
     <div className="container mx-auto pt-8 px-8 xl:px-0">
@@ -20,6 +12,7 @@ export default async function Home() {
         {products.map((product: Product) => (
           <ProductCard key={product.id} product={product} />
         ))}
+        {/* <InfinityScroll initialProducts={products} /> */}
       </div>
     </div>
   );
